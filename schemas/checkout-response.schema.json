@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EL-Rouji Checkout Response",
+  "description": "Provider-neutral order-creation response. Payment and fulfillment state machines remain separate and provider-dependent.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "orderId",
+    "requestId",
+    "status",
+    "currency",
+    "amountMinor"
+  ],
+  "properties": {
+    "orderId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "requestId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "PENDING_CONFIRMATION",
+        "PAYMENT_PENDING",
+        "CONFIRMED"
+      ]
+    },
+    "currency": {
+      "type": "string",
+      "pattern": "^[A-Z]{3}$"
+    },
+    "amountMinor": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1000000000000
+    }
+  }
+}

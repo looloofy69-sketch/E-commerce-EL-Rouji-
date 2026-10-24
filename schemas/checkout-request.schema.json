@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EL-Rouji Checkout Request",
+  "description": "Client intent only. Do not accept client-supplied prices, totals, discounts, tax, roles, order status or payment status as authoritative values.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "cartId",
+    "idempotencyKey",
+    "fulfillmentMethod"
+  ],
+  "properties": {
+    "cartId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9._:-]+$"
+    },
+    "fulfillmentMethod": {
+      "type": "string",
+      "enum": [
+        "delivery",
+        "pickup"
+      ]
+    },
+    "shippingAddressId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "fulfillmentMethod": {
+            "const": "delivery"
+          }
+        },
+        "required": [
+          "fulfillmentMethod"
+        ]
+      },
+      "then": {
+        "required": [
+          "shippingAddressId"
+        ]
+      }
+    }
+  ]
+}

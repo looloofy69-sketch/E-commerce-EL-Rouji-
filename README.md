@@ -14,6 +14,8 @@ The initial market and operational assumptions are not confirmed requirements. A
 
 ## Documentation map
 
+- [Machine-readable product/checkout/error schemas](schemas/)
+
 - [Product requirements and MVP](docs/PRODUCT_REQUIREMENTS.md)
 - [Proposed architecture](docs/ARCHITECTURE.md)
 - [Proposed data model](docs/DATA_MODEL.md)
