@@ -1,5 +1,26 @@
 # Draft Commerce API Contracts
 
+## 0. Machine-readable contract baseline
+
+JSON Schema Draft 2020-12 contracts are maintained under [schemas/](../schemas/):
+
+- [Public product](../schemas/product.schema.json)
+- [Checkout request](../schemas/checkout-request.schema.json)
+- [Checkout response](../schemas/checkout-response.schema.json)
+- [Error envelope](../schemas/error.schema.json)
+
+Run the contract checks locally with Python 3.11 or later:
+
+```sh
+python -m pip install -r requirements-dev.txt
+python -m unittest discover -s tests -v
+```
+
+GitHub Actions runs the same schema/meta and example-payload tests on pushes and pull requests. These are draft request/response contracts, not live endpoints or proof of server-side enforcement. Before wiring a frontend or provider, the implementation must validate requests again on the server and the product owner must settle market, supported currencies, identity model, fulfillment, and payment policy.
+
+The checkout request intentionally excludes client-supplied currency, prices, totals, tax, role, payment status, and order status. The server must load the cart and catalog, determine allowed fulfillment/payment options, and calculate the authoritative amount. The currency regex checks code shape only; it does not decide which currency the store supports.
+
+
 **Status:** proposal only. No endpoint in this document is asserted to be implemented or deployed.
 
 Use a versioned base path such as `/api/v1` once the stack is selected. The examples show JSON; final content types, authentication, pagination, error envelopes, and idempotency headers must be agreed with the implementation.
